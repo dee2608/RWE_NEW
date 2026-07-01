@@ -491,6 +491,16 @@ def inject_css():
         border: 1px solid {C_BORDER} !important;
     }}
 
+    /* Radio buttons (Study Type Selection guide, etc.) — force visible dark
+       label text; the same dark-theme fallback that affected text inputs and
+       selectboxes also blanks out radio option labels otherwise. */
+    div[data-testid="stRadio"] label,
+    div[data-testid="stRadio"] label p,
+    div[data-testid="stRadio"] div[role="radiogroup"] label,
+    div[data-testid="stRadio"] div[role="radiogroup"] label * {{
+        color: #1A1A1A !important;
+    }}
+
     .stButton > button {{
         background: {C_PRIMARY};
         color: white;
@@ -1286,7 +1296,12 @@ When given a cohort description, respond in this EXACT JSON format (no markdown,
                           fillcolor="rgba(212,144,10,0.07)", line_width=0,
                           annotation_text="Calibration Zone", annotation_position="top right")
         styled_fig(fig_dt, "Digital Twin — Mean Body Weight Trajectory (kg) over 52 Weeks")
-        fig_dt.update_layout(xaxis_title="Weeks from Index Date", yaxis_title="Mean Body Weight (kg)")
+        fig_dt.update_layout(
+            xaxis_title=dict(text="Weeks from Index Date", font=dict(color="#1A1A1A")),
+            yaxis_title=dict(text="Mean Body Weight (kg)", font=dict(color="#1A1A1A")),
+            xaxis=dict(tickfont=dict(color="#1A1A1A")),
+            yaxis=dict(tickfont=dict(color="#1A1A1A")),
+        )
         st.plotly_chart(fig_dt, use_container_width=True)
 
         # Agentic insight
@@ -1456,8 +1471,10 @@ def render_projects():
             fig_km.add_vline(x=d, line_width=0.5, line_dash="dot", line_color=C_GRID)
         styled_fig(fig_km, "", 400)
         fig_km.update_layout(
-            xaxis_title="Days from Index Date",
-            yaxis_title="Probability of Remaining on Therapy",
+            xaxis_title=dict(text="Days from Index Date", font=dict(color="#1A1A1A")),
+            yaxis_title=dict(text="Probability of Remaining on Therapy", font=dict(color="#1A1A1A")),
+            xaxis=dict(tickfont=dict(color="#1A1A1A")),
+            yaxis=dict(tickfont=dict(color="#1A1A1A")),
             yaxis_range=[0.5, 1.02],
             legend=dict(x=0.7, y=0.95)
         )
@@ -1676,8 +1693,10 @@ def render_projects():
         fig_wf.add_hline(y=0, line_color=C_BORDER, line_width=1)
         styled_fig(fig_wf, "Individual Patient Weight Reduction — CagriSema Arm (n=80 sample, sorted)", 380)
         fig_wf.update_layout(
-            xaxis_title="Individual Patients (sorted by response)",
-            yaxis_title="% Weight Change at 12 Months",
+            xaxis_title=dict(text="Individual Patients (sorted by response)", font=dict(color="#1A1A1A")),
+            yaxis_title=dict(text="% Weight Change at 12 Months", font=dict(color="#1A1A1A")),
+            xaxis=dict(tickfont=dict(color="#1A1A1A")),
+            yaxis=dict(tickfont=dict(color="#1A1A1A")),
             showlegend=False
         )
         st.plotly_chart(fig_wf, use_container_width=True)
